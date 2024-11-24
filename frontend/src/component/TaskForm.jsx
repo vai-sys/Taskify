@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -14,14 +15,16 @@ const TaskForm = ({ task = null, onClose, onTasksUpdate, setError }) => {
     e.preventDefault();
     try {
       if (task) {
+        // Update an existing task
         await axios.put(
-          `http://localhost:3000/api/task/update-task/${task._id}`,
+          `http://localhost:3000/api/task/${task._id}`,
           formData,
           { withCredentials: true }
         );
       } else {
+        // Create a new task
         await axios.post(
-          "http://localhost:3000/api/task/create-task",
+          "http://localhost:3000/api/task",
           formData,
           { withCredentials: true }
         );
@@ -41,29 +44,21 @@ const TaskForm = ({ task = null, onClose, onTasksUpdate, setError }) => {
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Title
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
             <input
               type="text"
               value={formData.title}
-              onChange={(e) =>
-                setFormData({ ...formData, title: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Description
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
             <textarea
               value={formData.description}
-              onChange={(e) =>
-                setFormData({ ...formData, description: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
               rows="3"
             />
@@ -71,14 +66,10 @@ const TaskForm = ({ task = null, onClose, onTasksUpdate, setError }) => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Priority
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
               <select
                 value={formData.priority}
-                onChange={(e) =>
-                  setFormData({ ...formData, priority: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               >
                 <option value="low">Low</option>
@@ -88,14 +79,10 @@ const TaskForm = ({ task = null, onClose, onTasksUpdate, setError }) => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Status
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
               <select
                 value={formData.status}
-                onChange={(e) =>
-                  setFormData({ ...formData, status: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               >
                 <option value="pending">Pending</option>
@@ -106,24 +93,20 @@ const TaskForm = ({ task = null, onClose, onTasksUpdate, setError }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Due Date
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
             <input
               type="date"
               value={formData.dueDate}
-              onChange={(e) =>
-                setFormData({ ...formData, dueDate: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
             />
           </div>
 
-          <div className="flex justify-end space-x-3">
+          <div className="flex justify-end space-x-4 mt-4">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50"
+              className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
             >
               Cancel
             </button>
@@ -140,4 +123,4 @@ const TaskForm = ({ task = null, onClose, onTasksUpdate, setError }) => {
   );
 };
 
-export default TaskForm
+export default TaskForm;

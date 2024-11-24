@@ -1,17 +1,17 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TaskForm from "./TaskForm";
-import { toast,ToastContainer } from "react-toastify";  
+import { toast, ToastContainer } from "react-toastify";  
 import 'react-toastify/dist/ReactToastify.css';
-
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [error, setError] = useState("");
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const priorityColors = {
     low: "bg-green-100 text-green-800 border-green-200",
@@ -33,7 +33,7 @@ const TaskList = () => {
       setTasks(response.data);
     } catch (err) {
       setError("Failed to fetch tasks");
-      toast.error("Failed to fetch tasks"); 
+      toast.error("Failed to fetch tasks");
     }
   };
 
@@ -43,42 +43,40 @@ const TaskList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/task/delete-task/${id}`, {
+      await axios.delete(`http://localhost:3000/api/task/${id}`, {
         withCredentials: true,
       });
       fetchTasks();
-      toast.success("Task deleted successfully!");  
+      toast.success("Task deleted successfully!");
     } catch (err) {
       setError("Failed to delete task");
-      toast.error("Failed to delete task");  
+      toast.error("Failed to delete task");
     }
   };
 
   const handleDeleteAll = async () => {
     try {
-      await axios.delete("http://localhost:3000/api/task/delete-all", {
+      await axios.delete("http://localhost:3000/api/task", {
         withCredentials: true,
       });
       setTasks([]);
-      toast.success("All tasks deleted successfully!");  
+      toast.success("All tasks deleted successfully!");
     } catch (err) {
       setError("Failed to delete all tasks");
-      toast.error("Failed to delete all tasks"); 
+      toast.error("Failed to delete all tasks");
     }
   };
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:3000/api/auth/logout", {
+      await axios.post("http://localhost:3000/api/auth/logout", {}, {
         withCredentials: true,
       });
-      toast.success("Logged out successfully!");  
-    
-    
-    navigate("/login")
+      toast.success("Logged out successfully!");
+      navigate("/login");
     } catch (err) {
       setError("Failed to log out");
-      toast.error("Failed to log out");  
+      toast.error("Failed to log out");
     }
   };
 
@@ -124,9 +122,7 @@ const TaskList = () => {
               className="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
             >
               <div className="flex justify-between items-start mb-3">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {task.title}
-                </h3>
+                <h3 className="text-lg font-semibold text-gray-900">{task.title}</h3>
                 <div className="flex space-x-2">
                   <button
                     onClick={() => setEditingTask(task)}
@@ -147,16 +143,12 @@ const TaskList = () => {
 
               <div className="flex flex-wrap gap-2 mt-auto">
                 <span
-                  className={`px-2 py-1 rounded-md text-xs font-medium ${
-                    priorityColors[task.priority]
-                  }`}
+                  className={`px-2 py-1 rounded-md text-xs font-medium ${priorityColors[task.priority]}`}
                 >
                   {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
                 </span>
                 <span
-                  className={`px-2 py-1 rounded-md text-xs font-medium ${
-                    statusColors[task.status]
-                  }`}
+                  className={`px-2 py-1 rounded-md text-xs font-medium ${statusColors[task.status]}`}
                 >
                   {task.status.charAt(0).toUpperCase() + task.status.slice(1)}
                 </span>
@@ -183,10 +175,10 @@ const TaskList = () => {
         )}
       </div>
 
-     
       <ToastContainer />
     </div>
   );
 };
 
 export default TaskList;
+
