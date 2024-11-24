@@ -27,7 +27,7 @@ const TaskList = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("https://taskify-4.onrender.com/api/task", {
+      const response = await axios.get("http://localhost:3000/api/task", {
         withCredentials: true,
       });
       setTasks(response.data);
@@ -43,7 +43,7 @@ const TaskList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://taskify-4.onrender.com/api/task/${id}`, {
+      await axios.delete(`http://localhost:3000/api/task/${id}`, {
         withCredentials: true,
       });
       fetchTasks();
@@ -56,7 +56,7 @@ const TaskList = () => {
 
   const handleDeleteAll = async () => {
     try {
-      await axios.delete("https://taskify-4.onrender.com/api/task", {
+      await axios.delete("http://localhost:3000/api/task", {
         withCredentials: true,
       });
       setTasks([]);
@@ -69,7 +69,7 @@ const TaskList = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("https://taskify-4.onrender.com/api/auth/logout", {}, {
+      await axios.post("http://localhost:3000/api/auth/logout", {}, {
         withCredentials: true,
       });
       toast.success("Logged out successfully!");
