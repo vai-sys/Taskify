@@ -20,7 +20,7 @@ const Registration = () => {
         };
 
         try {
-            const response = await axios.post("https://taskify-uagn.vercel.app/api/auth/register", formData,{
+            const response = await axios.post("https://taskify-nqes.vercel.app/api/auth/register", formData,{
                 withCredentials:true
             });
 

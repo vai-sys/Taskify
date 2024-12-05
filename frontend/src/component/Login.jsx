@@ -28,7 +28,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://taskify-uagn.vercel.app/api/auth/login",
+        "https://taskify-nqes.vercel.app/api/auth/login",
         formData,
         {
           withCredentials: true,
