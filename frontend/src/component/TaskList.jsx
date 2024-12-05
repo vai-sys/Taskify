@@ -25,9 +25,10 @@ const TaskList = () => {
     completed: "bg-emerald-100 text-emerald-800",
   };
 
+
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("https://taskify-nqes.vercel.app/api/task", {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/task`, {
         withCredentials: true,
       });
       setTasks(response.data);
@@ -36,28 +37,23 @@ const TaskList = () => {
       toast.error("Failed to fetch tasks");
     }
   };
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
+  
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://taskify-nqes.vercel.app/api/task/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/task/${id}`, {
         withCredentials: true,
       });
       fetchTasks();
-      
       toast.success("Task deleted successfully!");
     } catch (err) {
       setError("Failed to delete task");
       toast.error("Failed to delete task");
     }
   };
-
+  
   const handleDeleteAll = async () => {
     try {
-      await axios.delete("https://taskify-nqes.vercel.app/api/task", {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/task`, {
         withCredentials: true,
       });
       setTasks([]);
@@ -67,10 +63,10 @@ const TaskList = () => {
       toast.error("Failed to delete all tasks");
     }
   };
-
+  
   const handleLogout = async () => {
     try {
-      await axios.post("https://taskify-nqes.vercel.app/api/auth/logout", {}, {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, {}, {
         withCredentials: true,
       });
       toast.success("Logged out successfully!");
@@ -80,6 +76,9 @@ const TaskList = () => {
       toast.error("Failed to log out");
     }
   };
+  
+
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">

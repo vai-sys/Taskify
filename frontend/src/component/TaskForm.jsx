@@ -14,29 +14,51 @@ const TaskForm = ({ task = null, onClose, onTasksUpdate, setError }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const apiUrl = `${import.meta.env.VITE_BACKEND_URL}/api/task`;
       if (task) {
-      
-        await axios.put(
-          `https://taskify-nqes.vercel.app/api/task/${task._id}`,
-          formData,
-          { withCredentials: true }
-        );
+        await axios.put(`${apiUrl}/${task._id}`, formData, {
+          withCredentials: true,
+        });
       } else {
-        
-        await axios.post(
-          "https://taskify-nqes.vercel.app/api/task",
-          formData,
-          { withCredentials: true }
-        );
-
-       
+        await axios.post(apiUrl, formData, {
+          withCredentials: true,
+        });
       }
+  
       onTasksUpdate();
       onClose();
     } catch (err) {
       setError(err.response?.data?.message || "Failed to save task");
     }
   };
+  
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     if (task) {
+      
+  //       await axios.put(
+  //         `${process.env.BACKEND_URL}/api/task/${task._id}`,
+  //         formData,
+  //         { withCredentials: true }
+  //       );
+  //     } else {
+        
+  //       await axios.post(
+  //         `${process.env.BACKEND_URL}/api/task`,
+  //         formData,
+  //         { withCredentials: true }
+  //       );
+
+       
+  //     }
+  //     onTasksUpdate();
+  //     onClose();
+  //   } catch (err) {
+  //     setError(err.response?.data?.message || "Failed to save task");
+  //   }
+  // };
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">

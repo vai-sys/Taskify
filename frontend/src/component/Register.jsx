@@ -20,9 +20,11 @@ const Registration = () => {
         };
 
         try {
-            const response = await axios.post("https://taskify-nqes.vercel.app/api/auth/register", formData,{
-                withCredentials:true
+           
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, formData, {
+                withCredentials: true,
             });
+            
 
             
             setUsername("");
@@ -31,7 +33,7 @@ const Registration = () => {
 
            
             toast.success("Registration Successful!", { autoClose: 2000 });
-
+                
             console.log(response);
             setTimeout(() => {
                 navigate("/login");
@@ -40,6 +42,7 @@ const Registration = () => {
         } catch (err) {
         
             toast.error(err.response?.data?.message || "Something went wrong");
+            console.log(err);
         }
     };
 
