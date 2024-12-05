@@ -17,14 +17,14 @@ const TaskForm = ({ task = null, onClose, onTasksUpdate, setError }) => {
       if (task) {
       
         await axios.put(
-          `http://localhost:3000/api/task/${task._id}`,
+          `https://taskify-uagn.vercel.app/api/task/${task._id}`,
           formData,
           { withCredentials: true }
         );
       } else {
         
         await axios.post(
-          "http://localhost:3000/api/task",
+          "https://taskify-uagn.vercel.app/api/task",
           formData,
           { withCredentials: true }
         );
