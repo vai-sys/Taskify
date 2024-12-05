@@ -33,32 +33,7 @@ const TaskForm = ({ task = null, onClose, onTasksUpdate, setError }) => {
   };
   
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     if (task) {
-      
-  //       await axios.put(
-  //         `${process.env.BACKEND_URL}/api/task/${task._id}`,
-  //         formData,
-  //         { withCredentials: true }
-  //       );
-  //     } else {
-        
-  //       await axios.post(
-  //         `${process.env.BACKEND_URL}/api/task`,
-  //         formData,
-  //         { withCredentials: true }
-  //       );
 
-       
-  //     }
-  //     onTasksUpdate();
-  //     onClose();
-  //   } catch (err) {
-  //     setError(err.response?.data?.message || "Failed to save task");
-  //   }
-  // };
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
